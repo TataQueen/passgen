@@ -101,9 +101,8 @@ def customization():
 
 
 def PassGen(nchars,nums,specialchars):
-    schars=['!','@','#','$','&','.',',',';','-','_','+','=']
+    schars=['!','@','#','$','&',';','-','_','+','=']
     if nums==False and specialchars==False:
-        print('NN')
         passwd=[]
         cc=""
         for i in range(0,nchars):
@@ -114,9 +113,14 @@ def PassGen(nchars,nums,specialchars):
             elif mm==1:
                 cc=chr(randint(65,90))
                 passwd.append(cc)
-        print(passwd)
+        clear()
+        logo()
+        print("Your results:")
+        res=""
+        for i in range(0,len(passwd)):
+            res+=passwd[i]
+        print("Password: \""+res+"\"")
     elif nums==True and specialchars==False:
-        print('YN')
         passwd=[]
         cc=""
         nn=""
@@ -133,10 +137,15 @@ def PassGen(nchars,nums,specialchars):
             elif con==1:
                 nn=str(randint(0,9))
                 passwd.append(nn)
-        print(passwd)
+        clear()
+        logo()
+        print("Your results:")
+        res=""
+        for i in range(0,len(passwd)):
+            res+=passwd[i]
+        print("Password: \""+res+"\"")
 
     elif nums==True and specialchars==True:
-        print('YY')
         passwd=[]
         cc=""
         nn=""
@@ -157,7 +166,13 @@ def PassGen(nchars,nums,specialchars):
             elif conos ==2:
                 sc=randint(0,len(schars)-1)
                 passwd.append(schars[sc])
-        print(passwd)
+        clear()
+        logo()
+        print("Your results:")
+        res=""
+        for i in range(0,len(passwd)):
+            res+=passwd[i]
+        print("Password: \""+res+"\"")
 
 clear()
 start(0)
