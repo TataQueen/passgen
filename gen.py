@@ -2,28 +2,27 @@ from random2 import *
 import os
 
 clear = lambda: os.system('cls')
+out = open("output.txt", "a")
+
 
 #Ideas:
-#-Add file writer
 #-Add password checker
 
 def logo():
     print("""
 
-\033[1;31;40m /$$$$$$$                               /$$$$$$                     \033[0;36;40m             /$$$$$$       /$$
-\033[1;31;40m| $$__  $$                             /$$__  $$                    \033[0;36;40m            /$$$_  $$    /$$$$
-\033[1;31;40m| $$  \ $$ /$$$$$$   /$$$$$$$ /$$$$$$$| $$  \__/  /$$$$$$  /$$$$$$$ \033[0;36;40m /$$    /$$| $$$$\ $$   |_  $$
-\033[1;31;40m| $$$$$$$/|____  $$ /$$_____//$$_____/| $$ /$$$$ /$$__  $$| $$__  $$\033[0;36;40m|  $$  /$$/| $$ $$ $$     | $$
-\033[1;31;40m| $$____/  /$$$$$$$|  $$$$$$|  $$$$$$ | $$|_  $$| $$$$$$$$| $$  \ $$\033[0;36;40m \  $$/$$/ | $$\ $$$$     | $$
-\033[1;31;40m| $$      /$$__  $$ \____  $$\____  $$| $$  \ $$| $$_____/| $$  | $$\033[0;36;40m  \  $$$/  | $$ \ $$$     | $$
-\033[1;31;40m| $$     |  $$$$$$$ /$$$$$$$//$$$$$$$/|  $$$$$$/|  $$$$$$$| $$  | $$\033[0;36;40m   \  $/   |  $$$$$$//$$ /$$$$$$
-\033[1;31;40m|__/      \_______/|_______/|_______/  \______/  \_______/|__/  |__/\033[0;36;40m    \_/     \______/|__/|______/
-
-
+\033[1;31;40m /$$$$$$$                               /$$$$$$                     \033[0;36;40m             /$$$$$$      /$$$$$$
+\033[1;31;40m| $$__  $$                             /$$__  $$                    \033[0;36;40m            /$$$_  $$    /$$__  $$
+\033[1;31;40m| $$  \ $$ /$$$$$$   /$$$$$$$ /$$$$$$$| $$  \__/  /$$$$$$  /$$$$$$$ \033[0;36;40m /$$    /$$| $$$$\ $$   |__/  \ $$
+\033[1;31;40m| $$$$$$$/|____  $$ /$$_____//$$_____/| $$ /$$$$ /$$__  $$| $$__  $$\033[0;36;40m|  $$  /$$/| $$ $$ $$     /$$$$$$/
+\033[1;31;40m| $$____/  /$$$$$$$|  $$$$$$|  $$$$$$ | $$|_  $$| $$$$$$$$| $$  \ $$\033[0;36;40m \  $$/$$/ | $$\ $$$$    /$$____/
+\033[1;31;40m| $$      /$$__  $$ \____  $$\____  $$| $$  \ $$| $$_____/| $$  | $$\033[0;36;40m  \  $$$/  | $$ \ $$$   | $$
+\033[1;31;40m| $$     |  $$$$$$$ /$$$$$$$//$$$$$$$/|  $$$$$$/|  $$$$$$$| $$  | $$\033[0;36;40m   \  $/   |  $$$$$$//$$| $$$$$$$$
+\033[1;31;40m|__/      \_______/|_______/|_______/  \______/  \_______/|__/  |__/\033[0;36;40m    \_/     \______/|__/|________/
 
 \033[1;37;40m
-PassGen v0.1 made by \033[1;35;40mTataQueen\033[1;37;40m(https://github.com/\033[1;35;40mTataQueen\033[1;37;40m/passgen)
-Please do not distribute without giving credit to the author(s): \033[1;35;40m@TataQueen\033[1;37;40m
+PassGen v0.2 made by \033[1;35;40mTataQueen\033[1;37;40m(https://github.com/\033[1;35;40mTataQueen\033[1;37;40m/passgen)
+Please do not distribute without crediting the author(s): \033[1;35;40m@TataQueen\033[1;37;40m
 """)
 
 
@@ -59,7 +58,7 @@ def selection(n):
     elif n==3:
         PassGen(32, True, True)
     elif n==9:
-        customization()
+        customization(0)
     elif n==99:
         clear()
         exit()
@@ -67,10 +66,14 @@ def selection(n):
         clear()
         start(2)
 
-def customization():
+def customization(err):
     clear()
     logo()
     print("Password customization menu, please follow the instructions as intended, or it will restart.\n")
+    if err--1:
+        print("That's not a valid value, try again.")
+    elif err--2:
+        print("Enter valid values.")
     try:
         n=int(input('Number of chars [0,32768]: '))
         num=str(input('Numbers? [y/n]: '))
@@ -81,10 +84,10 @@ def customization():
     else:
         if n>32768:
             print('Too big!')
-            customization()
+            customization(2)
         elif n<0:
             print('Too small, she said.')
-            customization()
+            customization(2)
         if num=="y":
             num=True
         elif num=="n":
@@ -97,7 +100,7 @@ def customization():
             PassGen(n,num,scs)
         else:
             print("Not valid, try again.")
-            customization()
+            customization(2)
 
 
 def PassGen(nchars,nums,specialchars):
@@ -120,6 +123,11 @@ def PassGen(nchars,nums,specialchars):
         for i in range(0,len(passwd)):
             res+=passwd[i]
         print("Password: \""+res+"\"")
+        out.write("""
+
+""")
+        out.write(res)
+        print("The results have been saved in output.txt, to avoid overwriting it has been added to the end of the file.")
     elif nums==True and specialchars==False:
         passwd=[]
         cc=""
@@ -144,7 +152,40 @@ def PassGen(nchars,nums,specialchars):
         for i in range(0,len(passwd)):
             res+=passwd[i]
         print("Password: \""+res+"\"")
+        out.write("""
 
+""")
+        out.write(res)
+        print("The results have been saved in output.txt, to avoid overwriting it has been added to the end of the file.")
+    elif nums==False and specialchars==True:
+        passwd=[]
+        cc=""
+        sc=""
+        for i in range(0,nchars):
+            con=randint(0,1)
+            if con==0:
+                mm=randint(0,1)
+                if mm==0:
+                    cc=str(chr(randint(97,122)))
+                    passwd.append(cc)
+                elif mm==1:
+                    cc=str(chr(randint(65,90)))
+                    passwd.append(cc)
+            elif con ==1:
+                sc=randint(0,len(schars)-1)
+                passwd.append(schars[sc])
+        clear()
+        logo()
+        print("Your results:")
+        res=""
+        for i in range(0,len(passwd)):
+            res+=passwd[i]
+        print("Password: \""+res+"\"")
+        out.write("""
+
+""")
+        out.write(res)
+        print("The results have been saved in output.txt, to avoid overwriting it has been added to the end of the file.")
     elif nums==True and specialchars==True:
         passwd=[]
         cc=""
@@ -173,6 +214,10 @@ def PassGen(nchars,nums,specialchars):
         for i in range(0,len(passwd)):
             res+=passwd[i]
         print("Password: \""+res+"\"")
+        out.write("""
 
+""")
+        out.write(res)
+        print("The results have been saved in output.txt, to avoid overwriting it has been added to the end of the file.")
 clear()
 start(0)
