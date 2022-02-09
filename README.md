@@ -1,4 +1,4 @@
-# PassGen v0.1
+# PassGen v0.2
 A simple password generator
 
 Preview:
@@ -9,6 +9,15 @@ Preview:
   
   3 templates for passwords
   
-  Customized type of passwords (more customization coming soon uwu)
+  Customizable generator
+  
+  Saves your outputs to a file
   
   You can exit the program!
+
+- To be implemented
+
+  Multiple generation
+  
+  Settings menu for more customization with settings file (json)
+  
