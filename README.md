@@ -2,7 +2,7 @@
 A simple password generator
 
 Preview:
-![image](https://user-images.githubusercontent.com/87445319/152909146-8af7c708-012d-42f0-9fb2-2ded22ba6776.png)
+![image](https://user-images.githubusercontent.com/87445319/153234904-495a2894-f002-48c0-bb7b-44534da1de83.png)
 
 
 - Functionality
